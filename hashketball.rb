@@ -229,7 +229,7 @@ def biggest_shoe
   all_players_info.each do |player|
     shoe_arry << player[:shoe]
   end
-p shoe_arry.max
+shoe_arry.max
 end
 
 def big_shoe_rebounds
@@ -248,7 +248,7 @@ def highest_score
   all_players_info.each do |player|
     results << player[:points]
   end
-p results.max
+results.max
 end
 
 def most_points_scored
@@ -259,4 +259,46 @@ def most_points_scored
       end
     end
   end
+end
+
+def home_team_points
+  result = 0
+
+  find_team_data(game_hash[:home][:team_name]).each do |team_key, team_key_values|
+    if team_key == :players
+      team_key_values.each do |player|
+        result += player[:points]
+      end
+    end
+  end
+result
+end
+
+def away_team_points
+  result = 0
+
+  find_team_data(game_hash[:away][:team_name]).each do |team_key, team_key_values|
+    if team_key == :players
+      team_key_values.each do |player|
+        result += player[:points]
+      end
+    end
+  end
+result
+end
+
+def winning_team
+  if home_team_points > away_team_points
+    game_hash[:home][:team_name]
+  else game_hash[:away][:team_name]
+  end
+end
+
+def player_with_longest_name
+  name_container = []
+
+  all_players_info.each do |player|
+    name_container << player[:player_name]
+  end
+  name_container.max_by {|n| n.length}
 end
