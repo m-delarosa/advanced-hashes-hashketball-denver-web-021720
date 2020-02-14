@@ -143,7 +143,7 @@ def num_points_scored(players_name)
   end
 end
 
-def player_stats(players_name)
+def player_info(players_name)
   game_hash.each do |team, team_data|
     team_data.each do |team_key, team_key_values|
       if team_key == :players
@@ -158,7 +158,7 @@ def player_stats(players_name)
 end
 
 def shoe_size(players_name)
-  player_stats(players_name)[:shoe]
+  player_info(players_name)[:shoe]
 end
 
 def find_team_data(team_name)
@@ -179,6 +179,29 @@ end
 
 def team_names
   game_hash.map do |team_place, team_data|
-    return team_data[:team_name]
+    team_data[:team_name]
   end
+end
+
+def player_numbers(team_name)
+  #Returns an array (.map) that contains the jersey number the team passed in.
+  result = nil
+
+  game_hash.each do |place, team|
+    if team[:team_name] == team_name
+      team.each do |attribute, data|
+        if attribute == :players
+          result = data.map do |player| #player parameter represents each player's hash within the array.
+            player[:number]
+          end
+        end
+      end
+    end
+  end
+  result
+end
+
+def player_stats(players_name)
+  #Returns player_info hash minus player name kv pair.
+  player_info(players_name).filter {|k,v| v != players_name }
 end
