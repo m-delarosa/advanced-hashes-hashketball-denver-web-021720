@@ -311,4 +311,17 @@ def most_steals
   end
 results.max
 end
+
+def player_with_most_steals
+  all_players_info.each do |player|
+    player.each do |k,v|
+      if player[:steals] == most_steals
+        return player[:player_name]
+      end
+    end
+  end
+end
 binding.pry
+def long_name_steals_a_ton
+  if
+end
