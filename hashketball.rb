@@ -205,3 +205,39 @@ def player_stats(players_name)
   #Returns player_info hash minus player name kv pair.
   player_info(players_name).filter {|k,v| v != players_name }
 end
+
+#Iterate down to name level, put each name into player stats, find the one within
+#the largest shoe integer and return it's corresponding rebound integer
+def all_players_info
+result = []
+
+  game_hash.each do |team, team_data|
+    team_data.each do |team_key, team_key_values|
+      if team_key == :players
+        team_key_values.each do |player|
+          result << player_info(player[:player_name])
+        end
+      end
+    end
+  end
+  result
+end
+# binding.pry
+def biggest_shoe
+  shoe_arry = []
+
+  all_players_info.each do |player|
+    shoe_arry << player[:shoe]
+  end
+p shoe_arry.max
+end
+
+def big_shoe_rebounds
+  all_players_info.each do |player|
+    player.each do |k,v|
+      if player[:shoe] == 19
+        return player[:rebounds]
+      end
+    end
+  end
+end
