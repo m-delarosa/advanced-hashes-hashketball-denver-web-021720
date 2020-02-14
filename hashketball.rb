@@ -302,3 +302,13 @@ def player_with_longest_name
   end
   name_container.max_by {|n| n.length}
 end
+
+def most_steals
+  results = []
+
+  all_players_info.each do |player|
+    results << player[:steals]
+  end
+results.max
+end
+binding.pry
