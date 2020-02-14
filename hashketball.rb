@@ -235,8 +235,27 @@ end
 def big_shoe_rebounds
   all_players_info.each do |player|
     player.each do |k,v|
-      if player[:shoe] == 19
+      if player[:shoe] == biggest_shoe
         return player[:rebounds]
+      end
+    end
+  end
+end
+
+def highest_score
+  results = []
+
+  all_players_info.each do |player|
+    results << player[:points]
+  end
+p results.max
+end
+
+def most_points_scored
+  all_players_info.each do |player|
+    player.each do |k,v|
+      if player[:points] == highest_score
+        return player[:player_name]
       end
     end
   end
